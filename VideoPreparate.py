@@ -3,6 +3,7 @@ from moviepy.editor import VideoFileClip
 import cv2
 import numpy as np
 import os
+import glob
 
 class VideoPreparate():
     '''Что делает?
@@ -44,6 +45,9 @@ class VideoPreparate():
         filename += '-asciim8.py'
         if not os.path.isdir(filename):
             os.mkdir(filename)
+        else:
+            for file in glob.glob(filename+'/*'):
+                os.remove(file)
         video = cv2.VideoCapture(videoFile)
         fps = video.get(cv2.CAP_PROP_FPS)
         savingFPS = min(VideoPreparate.VIDEO_FRAMES_PER_SECOND, fps)
